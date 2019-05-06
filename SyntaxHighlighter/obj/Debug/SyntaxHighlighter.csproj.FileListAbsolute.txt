@@ -5,3 +5,10 @@ C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter\obj\Debug\Syntax
 C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.csproj.CoreCompileInputs.cache
 C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.exe
 C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.pdb
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\bin\Debug\SyntaxHighlighter.exe.config
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\bin\Debug\SyntaxHighlighter.exe
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\bin\Debug\SyntaxHighlighter.pdb
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.csprojAssemblyReference.cache
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.csproj.CoreCompileInputs.cache
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.exe
+C:\Users\Tommy\Desktop\syntax-highlighter\SyntaxHighlighter\obj\Debug\SyntaxHighlighter.pdb

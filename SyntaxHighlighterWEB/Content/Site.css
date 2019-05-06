@@ -31,7 +31,7 @@ span {
     }
 
     span.keyword {
-        color: blue;
+        color: #4095D6;
     }
 
     span.separator {
@@ -39,7 +39,7 @@ span {
     }
 
     span.identifier {
-        color: red;
+        color: black;
     }
 
     span.operator {
@@ -60,15 +60,15 @@ span {
     }
 
     span.string_literal {
-        color: lawngreen;
+        color: #C39D85;
     }
 
     span.comment {
-        color: chocolate
+        color: #578B30;
     }
 
     span.identifier_class {
-        color: aquamarine;
+        color: #4EC9B0;
     }
 
     span.identifier_ns {
@@ -76,11 +76,11 @@ span {
     }
 
     span.identifier_method {
-        color: aliceblue;
+        color: orange;
     }
 
     span.identifier_property {
-        color: yellow;
+        color: purple;
     }
 
 .wrapper {

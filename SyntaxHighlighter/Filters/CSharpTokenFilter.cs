@@ -108,8 +108,59 @@ namespace SyntaxHighlighter.Filters
 
                 //}
             }
+            separatedSource = FixIdentifiers(separatedSource);
 
             return separatedSource;
+        }
+        private List<Token> FixIdentifiers(List<Token> separatedSource)
+        {
+            var newSource = new List<Token>();
+
+            var usingIsProccessed = false;
+            var namespaceIsProccessed = false;
+
+            foreach (var token in separatedSource)
+            {
+                if (token.Text == "using") usingIsProccessed = true;
+                if (token.Text == ";") usingIsProccessed = false;
+
+                if (token.Text == "namespace") namespaceIsProccessed = true;
+                if (token.Text == "{") namespaceIsProccessed = false;
+
+                if (token.Type == TokenType.IDENTIFIER && token.Text.Contains(".") && !usingIsProccessed && !namespaceIsProccessed)
+                {
+                    var tokenIndex = separatedSource.IndexOf(token) + 1;
+                    var nextToken = separatedSource.ElementAt(tokenIndex);
+
+                    var split = token.Text.Split('.');
+
+                    var newToken = new Token(split[0], TokenType.IDENTIFIER, token.TokenPosition);
+                    newSource.Add(new Token(split[0], TokenType.IDENTIFIER, token.TokenPosition));
+
+                    newSource.Add(new Token(".", TokenType.SEPARATOR, token.TokenPosition));
+
+                    for (int i = 1; i < split.Length - 1; i++)
+                    {
+                        newToken = new Token(split[i], TokenType.IDENTIFIER_PROPERTY, token.TokenPosition);
+                        newSource.Add(newToken);
+                        newSource.Add(new Token(".", TokenType.SEPARATOR, token.TokenPosition));
+
+                    }
+
+                    if (nextToken.Text.Contains("("))
+                        newToken = new Token(split[split.Length - 1], TokenType.IDENTIFIER_METHOD, token.TokenPosition);
+                    else
+                        newToken = new Token(split[split.Length - 1], TokenType.IDENTIFIER_PROPERTY, token.TokenPosition);
+
+                    newSource.Add(newToken);
+                }
+                else
+                {
+                    newSource.Add(token);
+                }
+            }
+            return newSource;
+
         }
         public List<Token> ReviseTokens()
         {
@@ -117,6 +168,8 @@ namespace SyntaxHighlighter.Filters
 
             foreach (var currentToken in source)
             {
+              //  if (!currentToken.ShouldBeModified) continue;
+
                 if (currentToken.Type == TokenType.COMMENT)
                 {
                     SetCommentUntilEndOfLine(currentToken);
