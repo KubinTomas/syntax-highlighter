@@ -1,0 +1,17 @@
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\SyntaxHighlighter.UnitTests.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\SyntaxHighlighter.UnitTests.pdb
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\SyntaxHighlighter.exe
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\SyntaxHighlighter.pdb
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\SyntaxHighlighter.exe.config
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\obj\Debug\SyntaxHighlighter.UnitTests.csprojAssemblyReference.cache
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\obj\Debug\SyntaxHighlighter.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\obj\Debug\SyntaxHighlighter.UnitTests.csproj.CopyComplete
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\obj\Debug\SyntaxHighlighter.UnitTests.dll
+C:\Users\Kubin\source\repos\SyntaxHighlighter\SyntaxHighlighter.UnitTests\obj\Debug\SyntaxHighlighter.UnitTests.pdb

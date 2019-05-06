@@ -1,0 +1,6 @@
+<span style = padding-left:120px></span><span class='white_spaces'>            </span><span class='identifier'>formater.Run</span><span class='separator'>(</span><span class='separator'>)</span><span class='separator'>;</span><span class='white_spaces'> 
+            
+        </span><span class='separator'>}</span><span class='white_spaces'>
+    </span><span class='separator'>}</span><span style = padding-left:0px></span><span class='white_spaces'>
+</span><span class='separator'>}</span><span style = padding-left:0px></span><span class='white_spaces'>
+</span>

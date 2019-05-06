@@ -1,0 +1,46 @@
+﻿<div class="wrapper">
+    <h2>Pass in your code to see process highlighting</h2>
+    <div class="area-wrapper"><textarea id="dataTextArea"></textarea></div>
+    <input type="radio" name="language" value="CSharp" /> CSharp
+    <input type="radio" name="language" value="Java" /> Java
+    <br />
+    <button class="btn btn-primary" onclick="sendDataToFormat()">See HTML result</button>
+    <button class="btn btn-primary">Export results as XML</button>
+</div>
+<hr />
+<div class="wrapper">
+    <h2>Here is highlighted code in html syntax</h2>
+    <div class="html-preview-wrapper" id="htmlPreview">
+
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    var formatDataUrl = '@Url.Action("FormatTokens", "Home")';
+
+    function sendDataToFormat() {
+        var textAreaContent = $("#dataTextArea").val();
+
+        console.log(textAreaContent);
+        $("#htmlPreview").html("");
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("FormatTokens", "Home")",
+            data: { data: textAreaContent },
+            success: function (data) {
+                console.log(data);
+                var arrayLength = data.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    $("#htmlPreview").append(data[i]);
+                    //Do something
+                }
+            },
+            error: function (data) {
+                alert('error');
+                console.log(data);
+            }
+        });
+    }
+</script>
