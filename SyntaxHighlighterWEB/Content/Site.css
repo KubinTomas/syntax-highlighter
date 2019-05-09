@@ -24,14 +24,14 @@ select
 }
 
 span {
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
 
     span.white_spaces {
     }
 
-    span.keyword {
-        color: #4095D6;
+    span.key_word {
+        color: #569CD6;
     }
 
     span.separator {
