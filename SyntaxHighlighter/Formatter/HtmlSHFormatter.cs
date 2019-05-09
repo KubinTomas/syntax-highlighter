@@ -48,7 +48,7 @@ namespace SyntaxHighlighter.Formatter
         }
         public override string Format(Token token)
         {
-            int offsetMultiplicator = 5;
+            int offsetMultiplicator = 1;
             var newLineAdded = false;
             var formatedToken = "<span class='" + GetCssClassRelativeToTokenType(token.Type) + "'>" + token.Text + "</span>";
 

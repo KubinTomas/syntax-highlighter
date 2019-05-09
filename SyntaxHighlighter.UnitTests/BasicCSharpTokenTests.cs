@@ -28,15 +28,6 @@ namespace SyntaxHighlighter.UnitTests
             new TokenType[] { TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.IDENTIFIER_NS, TokenType.SEPARATOR }
             )]
         [DataRow(
-            "private void DoIt(Token token) { int a = 2; }",
-            new TokenType[] { TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.KEY_WORD,
-            TokenType.WHITE_SPACES, TokenType.IDENTIFIER_METHOD,
-            TokenType.SEPARATOR, TokenType.IDENTIFIER_CLASS, TokenType.WHITE_SPACES, TokenType.IDENTIFIER,
-            TokenType.SEPARATOR, TokenType.WHITE_SPACES, TokenType.SEPARATOR, TokenType.WHITE_SPACES,
-            TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.IDENTIFIER, TokenType.WHITE_SPACES, TokenType.OPERATOR,
-            TokenType.WHITE_SPACES, TokenType.INT_LITERAL, TokenType.SEPARATOR, TokenType.WHITE_SPACES, TokenType.SEPARATOR}
-            )]
-        [DataRow(
             "var ahj = new Hi();",
             new TokenType[] { TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.IDENTIFIER,
             TokenType.WHITE_SPACES, TokenType.OPERATOR, TokenType.WHITE_SPACES, TokenType.KEY_WORD, TokenType.WHITE_SPACES,
@@ -46,6 +37,15 @@ namespace SyntaxHighlighter.UnitTests
             "var //test komentu\nint",
             new TokenType[] { TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.COMMENT,
             TokenType.COMMENT, TokenType.COMMENT, TokenType.WHITE_SPACES, TokenType.KEY_WORD}
+            )]
+        [DataRow(
+            "private void DoIt(Token token) { int a = 2; }",
+            new TokenType[] { TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.KEY_WORD,
+            TokenType.WHITE_SPACES, TokenType.IDENTIFIER_METHOD,
+            TokenType.SEPARATOR, TokenType.IDENTIFIER_CLASS, TokenType.WHITE_SPACES, TokenType.IDENTIFIER,
+            TokenType.SEPARATOR, TokenType.WHITE_SPACES, TokenType.SEPARATOR, TokenType.WHITE_SPACES,
+            TokenType.KEY_WORD, TokenType.WHITE_SPACES, TokenType.IDENTIFIER, TokenType.WHITE_SPACES, TokenType.OPERATOR,
+            TokenType.WHITE_SPACES, TokenType.INT_LITERAL, TokenType.SEPARATOR, TokenType.WHITE_SPACES, TokenType.SEPARATOR}
             )]
         public void SHCsharpAreTokensWellConverted_TokensAreCorrect_ReturnsTrue(string inputData, TokenType[] expectedTokens)
         {

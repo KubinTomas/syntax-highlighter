@@ -16,7 +16,7 @@ namespace SyntaxHighlighter.Filters
 
         public Token Current { get; protected set; }
 
-        private string[] separableSymbols = "( ) { } ; < >".Split(' ');
+        private string[] separableSymbols = "( ) { } ; < > ,".Split(' ');
 
         public CSharpTokenFilter(AbstractTokenRecognizer tokenRecognizer)
         {
@@ -182,8 +182,10 @@ namespace SyntaxHighlighter.Filters
                 CheckOrReplacePropertyIdentifier(currentToken);
                 CheckOrReplaceIdentifier(currentToken);
                 CheckOrReplaceClassOrNsIdentifier(currentToken);
-                CheckOrReplaceMethodIdentifierArgument(currentToken);
                 IsTokenInGenericOperators(currentToken);
+
+                CheckOrReplaceMethodIdentifierArgument(currentToken);
+
             }
 
             return source;
@@ -221,15 +223,18 @@ namespace SyntaxHighlighter.Filters
         }
         private void CheckOrReplaceMethodIdentifierArgument(Token currentToken)
         {
+            
             var previous1NonSpaceTokenIndex = source.IndexOf(currentToken) - 2;
             var previous2NonSpaceTokenIndex = source.IndexOf(currentToken) - 1;
+            var nextNonSpaceTokenIndex = source.IndexOf(currentToken) + 1;
 
-            if (previous1NonSpaceTokenIndex < 0) return;
+            if (previous1NonSpaceTokenIndex < 0 || nextNonSpaceTokenIndex >= source.Count) return;
 
             var previous1Token = source.ElementAt(previous1NonSpaceTokenIndex);
             var previous2Token = source.ElementAt(previous2NonSpaceTokenIndex);
+            var nextToken = source.ElementAt(nextNonSpaceTokenIndex);
 
-            if (previous1Token.Type == TokenType.IDENTIFIER_METHOD && previous2Token.Text == "(" && currentToken.Type == TokenType.IDENTIFIER)
+            if (nextToken.Type != TokenType.SEPARATOR && previous1Token.Type == TokenType.IDENTIFIER_METHOD && previous2Token.Text == "(" && currentToken.Type == TokenType.IDENTIFIER)
                 currentToken.ChangeTokenType(TokenType.IDENTIFIER_CLASS);
         }
         /// <summary>
@@ -265,13 +270,13 @@ namespace SyntaxHighlighter.Filters
 
             var previousToken = source.ElementAt(previousNonSpaceTokenIndex);
 
-            var nextNonSpaceTokenIndex = source.IndexOf(currentToken) + 2;
+            var nextNonSpaceTokenIndex = source.IndexOf(currentToken) + 1;
 
             if (nextNonSpaceTokenIndex >= source.Count) return;
 
             var nextToken = source.ElementAt(nextNonSpaceTokenIndex);
 
-            if (previousToken.Type == TokenType.IDENTIFIER && nextToken.Text.Contains("(")) currentToken.ChangeTokenType(TokenType.IDENTIFIER_METHOD);
+            if (previousToken.Type == TokenType.KEY_WORD && nextToken.Text.Contains("(") && currentToken.Type == TokenType.IDENTIFIER) currentToken.ChangeTokenType(TokenType.IDENTIFIER_METHOD);
         }
         private void CheckIfIsNonReturnMethodName(Token currentToken)
         {
