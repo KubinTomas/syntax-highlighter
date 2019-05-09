@@ -64,69 +64,31 @@ namespace SyntaxHighlighterWEB.Controllers
             tokenFilter.SetSource(tokenizer);
             var revisedTokens = tokenFilter.ReviseTokens();
 
-            //ISHFormater formater = new HtmlSHFormatter(); 
-            //formater.SetSource(revisedTokens);
-            //formater.Run();
+            ISHFormater formater = new XmlSHFormatter();
+            formater.SetSource(revisedTokens);
+            formater.Run();
 
-            //var formatedToknes = formater.GetFormatedTokens();
+          
+            byte[] byteArray = null;
 
-            using (MemoryStream stream = new MemoryStream())
-            {
-                // Create an XML document. Write our specific values into the document.
-                XmlTextWriter xmlWriter = new XmlTextWriter(stream, System.Text.Encoding.ASCII);
+            if (formater is XmlSHFormatter)
+                 byteArray = ((XmlSHFormatter)formater).byteArray;
+            else throw new Exception();
 
-                // Write the XML document header.
-                xmlWriter.WriteStartDocument();
-
-                // Write our first XML header.
-                xmlWriter.WriteStartElement("Tokens");
-
-                // Write an element representing a single web application object.
-                foreach (var token in revisedTokens)
-                {
-                    xmlWriter.WriteStartElement("Token");
-
-                    xmlWriter.WriteElementString("Text", token.Text);
-                    xmlWriter.WriteElementString("Type", token.Type.ToString());
-                    xmlWriter.WriteElementString("Position:ROW-NOT-WORKING", token.TokenPosition.RowIndex.ToString());
-                    xmlWriter.WriteElementString("Position:COL-NOT-WORKING", token.TokenPosition.ColIndex.ToString());
-
-                    // End the element Token
-                    xmlWriter.WriteEndElement();
-                }
-
-                // End the element Tokens
-                xmlWriter.WriteEndElement();
-
-                // Finilize the XML document by writing any required closing tag.
-                xmlWriter.WriteEndDocument();
-
-                // To be safe, flush the document to the memory stream.
-                xmlWriter.Flush();
-
-                // Convert the memory stream to an array of bytes.
-                byte[] byteArray = stream.ToArray();
-
-                // Send the XML file to the web browser for download.
-                Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;filename=XMLFile.xml");
-                Response.AppendHeader("Content-Length", byteArray.Length.ToString());
-                Response.ContentType = "application/octet-stream";
-                Response.BinaryWrite(byteArray);
-                xmlWriter.Close();
-                Response.End();
-
-                //string xmlString = xmlWriter.ToString();
-                //string fileName = "test" + ".xml";
-                //return File(Encoding.UTF8.GetBytes(xmlString), "application/xml", fileName);
-            }
+            // Send the XML file to the web browser for download.
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename=XMLFile.xml");
+            Response.AppendHeader("Content-Length", byteArray.Length.ToString());
+            Response.ContentType = "application/octet-stream";
+            Response.BinaryWrite(byteArray);
+            Response.End();
         }
 
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult FormatTokens(string data)
         {
-              ISHTokenizer tokenizer = new CSharpSHTokenizer();
+            ISHTokenizer tokenizer = new CSharpSHTokenizer();
             tokenizer.SetInput(new StringReader(data));
 
             ISHFilter tokenFilter = new CSharpTokenFilter(tokenizer.GetTokenRecognizer());

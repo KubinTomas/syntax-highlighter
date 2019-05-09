@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filters\CSharpTokenFilter.cs" />
+    <Compile Include="Filters\JavaTokenFilter.cs" />
     <Compile Include="Formatter\AbstractSHFormatter.cs" />
     <Compile Include="Formatter\DebugSHFormatter.cs" />
     <Compile Include="Formatter\HtmlSHFormatter.cs" />
+    <Compile Include="Formatter\XmlSHFormatter.cs" />
     <Compile Include="Interfaces\ISHFilter.cs" />
     <Compile Include="Interfaces\ISHFormater.cs" />
     <Compile Include="Interfaces\ISHTokenizer.cs" />
