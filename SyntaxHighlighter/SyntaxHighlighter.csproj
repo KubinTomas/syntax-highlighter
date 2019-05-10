@@ -56,10 +56,12 @@
     <Compile Include="Token.cs" />
     <Compile Include="Tokenizers\AbstractSHTokenizer.cs" />
     <Compile Include="Tokenizers\CSharpSHTokenizer.cs" />
+    <Compile Include="Tokenizers\JavaSHTokenizer.cs" />
     <Compile Include="Tokenizers\TrivialSHTokenizer.cs" />
     <Compile Include="TokenPosition.cs" />
     <Compile Include="TokenRecognizers\AbstractTokenRecognizer.cs" />
     <Compile Include="TokenRecognizers\CSharpTokenRecognizer.cs" />
+    <Compile Include="TokenRecognizers\JavaTokenRecognizer.cs" />
     <Compile Include="TokenRecognizers\TrivialTokenRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>

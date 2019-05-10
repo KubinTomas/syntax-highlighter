@@ -17,6 +17,8 @@ namespace SyntaxHighlighterWEB.Controllers
 {
     public class HomeController : Controller
     {
+        ISHTokenizer tokenizer = null;
+        ISHFilter tokenFilter = null;
 
         public ActionResult Index()
         {
@@ -36,6 +38,24 @@ namespace SyntaxHighlighterWEB.Controllers
 
             return View();
         }
+        private void SetUpTokenizers(string language)
+        {
+            switch (language)
+            {
+                case "Java":
+                    tokenizer = new JavaSHTokenizer();
+                    tokenFilter = new JavaTokenFilter(tokenizer.GetTokenRecognizer());
+                    break;
+                case "CSharp":
+                    tokenizer = new CSharpSHTokenizer();
+                    tokenFilter = new CSharpTokenFilter(tokenizer.GetTokenRecognizer());
+                    break;
+                default:
+                    tokenizer = new CSharpSHTokenizer();
+                    tokenFilter = new CSharpTokenFilter(tokenizer.GetTokenRecognizer());
+                    break;
+            }
+        }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult SaveTokens(string data)
@@ -52,15 +72,15 @@ namespace SyntaxHighlighterWEB.Controllers
                 (!string.IsNullOrEmpty(extension)) ? (extension.StartsWith(".") ? extension : string.Concat(".", extension)) : "");
         }
         [ValidateInput(false)]
-        public void DownloadXml(string path)
+        public void DownloadXml(string path, string language)
         {
             // read string data from tmp file and then delete
             string data = System.IO.File.ReadAllText(path);
             System.IO.File.Delete(path);
 
-            ISHTokenizer tokenizer = new CSharpSHTokenizer();
+            SetUpTokenizers(language);
+
             tokenizer.SetInput(new StringReader(data));
-            ISHFilter tokenFilter = new CSharpTokenFilter(tokenizer.GetTokenRecognizer());
             tokenFilter.SetSource(tokenizer);
             var revisedTokens = tokenFilter.ReviseTokens();
 
@@ -68,11 +88,11 @@ namespace SyntaxHighlighterWEB.Controllers
             formater.SetSource(revisedTokens);
             formater.Run();
 
-          
+
             byte[] byteArray = null;
 
             if (formater is XmlSHFormatter)
-                 byteArray = ((XmlSHFormatter)formater).byteArray;
+                byteArray = ((XmlSHFormatter)formater).byteArray;
             else throw new Exception();
 
             // Send the XML file to the web browser for download.
@@ -86,18 +106,17 @@ namespace SyntaxHighlighterWEB.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult FormatTokens(string data)
+        public ActionResult FormatTokensHtml(string data, string language)
         {
-            ISHTokenizer tokenizer = new CSharpSHTokenizer();
+            SetUpTokenizers(language);
+
             tokenizer.SetInput(new StringReader(data));
 
-            ISHFilter tokenFilter = new CSharpTokenFilter(tokenizer.GetTokenRecognizer());
             tokenFilter.SetSource(tokenizer);
             var revisedTokens = tokenFilter.ReviseTokens();
 
-            ISHFormater formater = new HtmlSHFormatter(); // vytvoříme formátor
+            ISHFormater formater = new HtmlSHFormatter();
             formater.SetSource(revisedTokens);
-            //formater.SetOutput(new StreamWriter("formated.txt"));
             formater.Run();
 
             var formatedToknes = formater.GetFormatedTokens();

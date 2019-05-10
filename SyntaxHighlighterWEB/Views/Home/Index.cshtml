@@ -1,8 +1,8 @@
 ﻿<div class="wrapper">
     <h2>Pass in your code to see process highlighting</h2>
     <div class="area-wrapper"><textarea id="dataTextArea"></textarea></div>
-    <input type="radio" name="language" value="CSharp" /> CSharp
-    <input type="radio" name="language" value="Java" /> Java
+    <input type="radio" name="languages" value="CSharp" checked /> CSharp
+    <input type="radio" name="languages" value="Java" /> Java
     <br />
     <button class="btn btn-primary" onclick="sendDataToFormat()">See HTML result</button>
     <button class="btn btn-primary"  onclick="downloadTokensAsXml()">Download as XML</button>
@@ -17,18 +17,28 @@
 </div>
 <script type="text/javascript">
 
-    var formatDataUrl = '@Url.Action("FormatTokens", "Home")';
+    var formatDataUrl = '@Url.Action("FormatTokensHtml", "Home")';
     var downloadXmlUrl = '@Url.Action("DownloadXml", "Home")';
 
     function downloadTokensAsXml() {
 
         var textAreaContent = $("#dataTextArea").val();
 
+        var selectedLanguage = "";
+
+        var radios = document.getElementsByName('languages');
+
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                selectedLanguage = radios[i].value;
+                break;
+            }
+        }
 
           $.ajax({
             type: "POST",
             url: "@Url.Action("SaveTokens", "Home")",
-            data: { data: textAreaContent },
+            data: { data: textAreaContent, language: selectedLanguage  },
             success: function (path) {
                 console.log(path);
               
@@ -46,14 +56,25 @@
 
     function sendDataToFormat() {
         var textAreaContent = $("#dataTextArea").val();
+        var selectedLanguage = "";
 
+        var radios = document.getElementsByName('languages');
+
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                selectedLanguage = radios[i].value;
+                break;
+            }
+        }
+
+        console.log(selectedLanguage);
         console.log(textAreaContent);
         $("#htmlPreview").html("");
 
         $.ajax({
             type: "POST",
-            url: "@Url.Action("FormatTokens", "Home")",
-            data: { data: textAreaContent },
+            url: "@Url.Action("FormatTokensHtml", "Home")",
+            data: { data: textAreaContent, language: selectedLanguage },
             success: function (data) {
                 console.log(data);
                 var arrayLength = data.length;
