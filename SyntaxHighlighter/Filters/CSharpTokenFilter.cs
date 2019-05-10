@@ -16,7 +16,7 @@ namespace SyntaxHighlighter.Filters
 
         public Token Current { get; protected set; }
 
-        private string[] separableSymbols = "( ) { } ; < > ,".Split(' ');
+        private string[] separableSymbols = "( ) { } ; < > , \" ".Split(' ');
 
         public CSharpTokenFilter(AbstractTokenRecognizer tokenRecognizer)
         {
@@ -165,14 +165,27 @@ namespace SyntaxHighlighter.Filters
         public List<Token> ReviseTokens()
         {
             source = GetSeparatedToken();
+            bool stringProcessing = false;
+
+            
 
             foreach (var currentToken in source)
             {
-              //  if (!currentToken.ShouldBeModified) continue;
+                //  if (!currentToken.ShouldBeModified) continue;
 
-                if (currentToken.Type == TokenType.COMMENT)
+                if (!stringProcessing && currentToken.Type == TokenType.COMMENT 
+                    && (currentToken.Type != TokenType.STRING_LITERAL || !currentToken.Text.Contains("\"")))
                 {
                     SetCommentUntilEndOfLine(currentToken);
+                    continue;
+                }
+                if (currentToken.Text.Contains("\""))
+                {
+                    stringProcessing = !stringProcessing;
+                }
+                if (stringProcessing || currentToken.Text.Contains("\""))
+                {
+                    currentToken.ChangeTokenType(TokenType.STRING_LITERAL);
                     continue;
                 }
 
@@ -209,6 +222,23 @@ namespace SyntaxHighlighter.Filters
                 currentToken.ChangeTokenType(type);
             }
         }
+
+        private void SetStringLiteralUntilEndString(Token currentToken)
+        {
+            var index = source.IndexOf(currentToken) + 1;
+
+            currentToken.ChangeTokenType(TokenType.STRING_LITERAL);
+
+            for (int i = index; i < source.Count; i++)
+            {
+                var token = source.ElementAt(i);
+
+                token.ChangeTokenType(TokenType.STRING_LITERAL);
+
+                if (currentToken.Text.Contains("\"")) return;
+
+            }
+        }
         private void SetCommentUntilEndOfLine(Token currentToken)
         {
             var index = source.IndexOf(currentToken);
@@ -223,7 +253,7 @@ namespace SyntaxHighlighter.Filters
         }
         private void CheckOrReplaceMethodIdentifierArgument(Token currentToken)
         {
-            
+
             var previous1NonSpaceTokenIndex = source.IndexOf(currentToken) - 2;
             var previous2NonSpaceTokenIndex = source.IndexOf(currentToken) - 1;
             var nextNonSpaceTokenIndex = source.IndexOf(currentToken) + 1;
